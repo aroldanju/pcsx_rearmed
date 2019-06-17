@@ -29,6 +29,9 @@
 #include "arm_features.h"
 #include "revision.h"
 
+#include "../rc/rc.h"
+RemoteControl remoteControl;
+
 #ifndef NO_FRONTEND
 #include "libpicofe/input.h"
 #include "libpicofe/plat.h"
@@ -542,6 +545,9 @@ int main(int argc, char *argv[])
 			if (i+1 >= argc) break;
 			loadst_f = argv[++i];
 		}
+		else if (!strcmp(argv[1], "-rc")) {
+			rc_start(&remoteControl);
+		}
 		else if (!strcmp(argv[i], "-h") ||
 			 !strcmp(argv[i], "-help") ||
 			 !strcmp(argv[i], "--help")) {
@@ -652,6 +658,8 @@ int main(int argc, char *argv[])
 		if (emu_action != SACTION_NONE)
 			do_emu_action();
 	}
+	
+	rc_stop(&remoteControl);
 
 	printf("Exit..\n");
 	ClosePlugins();

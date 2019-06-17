@@ -223,6 +223,10 @@ else
 CFLAGS += -DNO_FRONTEND
 endif
 
+# remote control
+OBJS += rc/rc.o
+rc/%.o: rc/%.c
+
 # misc
 OBJS += frontend/main.o frontend/plugin.o
 
